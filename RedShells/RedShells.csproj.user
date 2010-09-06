@@ -6,6 +6,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>c:\WINDOWS\system32\windowspowershell\v1.0\powershell.exe</StartProgram>
-    <StartArguments>-noexit -command add-pssnapin redshells</StartArguments>
+    <StartArguments>-noexit</StartArguments>
   </PropertyGroup>
 </Project>

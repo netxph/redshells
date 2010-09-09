@@ -33,27 +33,38 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.PowerShell.Commands.Management, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddScriptCommand.cs" />
     <Compile Include="AddWorkspaceCommand.cs" />
     <Compile Include="AppSnapIn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ClearScriptsCommand.cs" />
+    <Compile Include="GetScriptsCommand.cs" />
+    <Compile Include="RemoveScriptCommand.cs" />
+    <Compile Include="ScriptCommandBase.cs" />
     <Compile Include="RemoveWorkspaceCommand.cs" />
     <Compile Include="GetWorkspacesCommand.cs" />
     <Compile Include="ClearWorkspacesCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script.cs" />
+    <Compile Include="ScriptData.cs" />
+    <Compile Include="ScriptView.cs" />
     <Compile Include="SetWorkspaceCommand.cs" />
     <Compile Include="Workspace.cs" />
     <Compile Include="WorkspaceCommandBase.cs" />
     <Compile Include="WorkspaceData.cs" />
     <Compile Include="WorkspaceView.cs" />
+    <Compile Include="WriteScriptCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="redshells.sqlite3">

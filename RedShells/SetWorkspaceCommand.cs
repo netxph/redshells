@@ -27,7 +27,7 @@ namespace RedShells
 
             if (workspace != null)
             {
-                string command = string.Format("{0} -{1} {2}", COMMAND, PATH_PARAM, workspace.Path);
+                string command = string.Format("{0} -{1} '{2}'", COMMAND, PATH_PARAM, workspace.Path);
                 WriteVerbose(string.Format("Changing Directory: {0}", Name));
                 Collection<PSObject> results = this.InvokeCommand.InvokeScript(command);
             }

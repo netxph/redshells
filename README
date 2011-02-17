@@ -1,2 +1,27 @@
-redshells (c) 2010
-PowerShell Tools for Developers
+h1. RedShells
+
+h2. Current Version
+
+Release 1.1
+
+h2. Features
+
+h3. Scripts
+
+Useful tools in automating tasks.
+
+*Script syntax*
+* Type any characters for filling up forms
+* Special keyboard operations are enclosed in curly braces. Example: {TAB}, {ENTER}
+* Using pipe "|" will insert a second pause in operation
+
+h3. Workspaces
+
+Set of tools in moving around folders in commandline by using only a key word.
+
+h3. Clipboard
+
+Provides basic copy and pasting files in commandline
+
+
+More features to come. . .

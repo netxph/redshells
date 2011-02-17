@@ -45,6 +45,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReadClipboardCommand.cs" />
+    <Compile Include="WriteClipboardCommand.cs" />
     <Compile Include="AddScriptCommand.cs" />
     <Compile Include="AddWorkspaceCommand.cs" />
     <Compile Include="AppSnapIn.cs">

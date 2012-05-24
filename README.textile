@@ -22,3 +22,7 @@ Set of tools in moving around folders in commandline by using only a key word.
 h3. Clipboard
 
 Provides basic copy and pasting files in commandline
+
+h3. Special Instructions
+
+Sqlite .NET library is currently in 64-bit, replace this one to match your current windows setup.

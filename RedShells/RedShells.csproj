@@ -77,7 +77,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework\v4.0.30319\installutil.exe $(TargetDir)$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe $(TargetDir)$(TargetFileName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

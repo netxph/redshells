@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,12 +78,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-<<<<<<< HEAD
-    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe $(TargetDir)$(TargetFileName)
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe $(TargetDir)$(TargetFileName)</PostBuildEvent>
-=======
-    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe $(TargetDir)$(TargetFileName)</PostBuildEvent>
->>>>>>> 4081f8c64a178ff35b1b6ba3e4bdc55db52b802f
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

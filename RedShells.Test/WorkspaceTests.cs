@@ -2,45 +2,68 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Xunit;
 
 namespace RedShells.Test
 {
-    [TestFixture]
     public class WorkspaceTests
     {
 
-        [Test]
-        public void GetWorkspaceTest()
+        public class GetWorkspaceMethod
         {
-            WorkspaceData data = new WorkspaceData();
-            Workspace workspace = data.GetWorkspace("home");
-            Assert.That(workspace, Is.Not.Null);
+
+            [Fact]
+            public void GetWorkspaceTest()
+            {
+                WorkspaceData data = new WorkspaceData();
+                Workspace workspace = data.GetWorkspace("home");
+                Assert.NotNull(workspace);
+            }
+
         }
 
-        [Test]
-        public void AddWorkspaceTest()
+        public class AddWorkspaceMethod
         {
-            WorkspaceData data = new WorkspaceData();
-            bool actual = data.SaveWorkspace(getRandomString(6, true), "d:\\users");
 
-            Assert.That(actual, Is.True);
+            [Fact]
+            public void AddWorkspaceTest()
+            {
+                Fixture fixture = new Fixture();
+
+                WorkspaceData data = new WorkspaceData();
+                bool actual = data.SaveWorkspace(fixture.CreateAnonymous<string>(), "d:\\users");
+
+                Assert.True(actual);
+            }
+
         }
 
-        [Test]
-        public void EditWorkspaceTest()
+        public class EditWorkspaceMethod
         {
-            WorkspaceData data = new WorkspaceData();
-            bool actual = data.SaveWorkspace("home", "d:\\users");
 
-            Assert.That(actual, Is.True);
+            [Fact]
+            public void EditWorkspaceTest()
+            {
+                WorkspaceData data = new WorkspaceData();
+                bool actual = data.SaveWorkspace("home", "d:\\users");
+
+                Assert.True(actual);
+            }
+
         }
 
-        [Test]
-        public void ClearWorkspacesTest()
+
+        public class ClearWorkspaceMethod
         {
-            WorkspaceData data = new WorkspaceData();
-            data.Clear();
+
+            [Fact]
+            public void ClearWorkspacesTest()
+            {
+                WorkspaceData data = new WorkspaceData();
+                data.Clear();
+            }
+
         }
 
         private string getRandomString(int size, bool lowerCase)

@@ -1,0 +1,11 @@
+C:\Users\Marc\projects\GitHub\redshells\RedShells.PowerShell\bin\Debug\RedShells.PowerShell.dll
+C:\Users\Marc\projects\GitHub\redshells\RedShells.PowerShell\bin\Debug\RedShells.PowerShell.pdb
+C:\Users\Marc\projects\GitHub\redshells\RedShells.PowerShell\obj\Debug\RedShells.PowerShell.dll
+C:\Users\Marc\projects\GitHub\redshells\RedShells.PowerShell\obj\Debug\RedShells.PowerShell.pdb
+C:\Users\Marc\projects\GitHub\bin\Debug\RedShells.PowerShell.dll
+C:\Users\Marc\projects\GitHub\bin\Debug\RedShells.PowerShell.pdb
+C:\Users\Marc\projects\GitHub\redshells\bin\Debug\RedShells.PowerShell.dll
+C:\Users\Marc\projects\GitHub\redshells\bin\Debug\RedShells.PowerShell.pdb
+C:\Users\Marc\projects\GitHub\redshells\bin\Debug\RedShells.PowerShell.dll.config
+C:\Users\Marc\projects\GitHub\redshells\bin\Debug\redshells.psd1
+C:\Users\Marc\projects\GitHub\redshells\bin\Debug\Initialize.ps1

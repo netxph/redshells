@@ -24,7 +24,7 @@ namespace RedShells
 
             if (script != null)
             {
-                Interaction.AppActivate(script.HandleName);
+                //Interaction.AppActivate(script.HandleName);
 
                 string[] sequences = script.Sequence.Split('|');
 

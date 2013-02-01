@@ -24,6 +24,8 @@
 *.sdf
 *.opensdf
 *.swp
+*.gallio
+*.ldf
 ipch/
 obj/
 [Bb]in

@@ -45,10 +45,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\WorkspaceModelFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Fixtures\UseFixture.cs" />
+    <Compile Include="WorkspaceModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedShells\RedShells.csproj">
+      <Project>{a2fa7b64-9383-4355-ac3d-43d794e125c2}</Project>
+      <Name>RedShells</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

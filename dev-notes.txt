@@ -1,0 +1,11 @@
+** Developer Notes
+
+Debugging
+
+To debug the application, set executable to powershell.exe
+
+ C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe
+
+... and set these as commandline arguments
+
+ -noprofile -noexit -File <output path of project>\Initialize.ps1

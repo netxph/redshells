@@ -2,7 +2,14 @@ h1. RedShells
 
 h2. Current Version
 
-Release 1.1
+Release 2.0 (Development)
+
+h2. What's New
+
+* Upgraded to Windows PowerShell 3.0
+* Easy installation using "Import-Module"
+* Uses MongoDB
+* More tools
 
 h2. Features
 

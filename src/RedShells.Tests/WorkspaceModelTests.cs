@@ -73,6 +73,21 @@ namespace RedShells.Tests
                 });
             }
 
+            [Fact]
+            public void ShouldReplaceWhenExisting()
+            {
+                WorkspaceModel model = Fixture.BuildPresenter();
+
+                Mock.Get(model.Data)
+                    .Setup(d => d.Get(It.IsAny<string>()))
+                    .Returns(new Workspace() { Key = "home", Path = @"c:\" });
+
+                model.Add("home", @"c:\users\vitalim");
+
+                Mock.Get(model.Data)
+                    .Verify(d => d.Update(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")), Times.Once());
+            }
+
         }
 
     }

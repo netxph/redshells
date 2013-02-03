@@ -31,7 +31,17 @@ namespace RedShells.Models
                 Path = path
             };
 
-            Data.Create(workspace);
+            //try to get if existing
+            var workspaceData = Data.Get(workspace.Key);
+
+            if (workspaceData != null)
+            {
+                Data.Update(workspace);
+            }
+            else
+            {
+                Data.Create(workspace);
+            }
         }
 
         public void Add(string key)

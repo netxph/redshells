@@ -90,5 +90,49 @@ namespace RedShells.Tests
 
         }
 
+        public class SetMethod : UseFixture<WorkspaceModelFixture>
+        {
+
+            [Fact]
+            public void ShouldSetWorkspace()
+            {
+                WorkspaceModel model = Fixture.BuildPresenter();
+
+                Mock.Get(model.Data)
+                    .Setup(d => d.Get(It.IsAny<string>()))
+                    .Returns(new Workspace() { Key = "root", Path = @"c:\" });
+
+                model.Set("root");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.SetCurrentPath(It.Is<string>(p => p == @"c:\")));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenKeyNotFound()
+            {
+
+                WorkspaceModel model = Fixture.BuildPresenter();
+
+                Assert.Throws(typeof(Exception), () =>
+                {
+                    model.Set("root");
+                });
+
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenKeyIsNull()
+            {
+                WorkspaceModel model = Fixture.BuildPresenter();
+                
+                Assert.Throws(typeof(Exception), () =>
+                {
+                    model.Set(null);
+                });
+            }
+
+        }
+
     }
 }

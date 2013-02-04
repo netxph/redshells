@@ -30,5 +30,10 @@ namespace RedShells
         {
             View.WriteObject(message);
         }
+
+        public void SetCurrentPath(string path)
+        {
+            View.InvokeCommand.InvokeScript(string.Format("Set-Location -Path '{0}'", path));
+        }
     }
 }

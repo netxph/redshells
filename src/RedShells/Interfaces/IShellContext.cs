@@ -13,5 +13,7 @@ namespace RedShells.Interfaces
         void Initialize(PSCmdlet command);
 
         void Write(string message);
+
+        void SetCurrentPath(string path);
     }
 }

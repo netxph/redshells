@@ -50,5 +50,21 @@ namespace RedShells.Models
         {
             Add(key, null);
         }
+
+        public void Set(string key)
+        {
+            if (string.IsNullOrEmpty(key)) throw new Exception("Key is required");
+
+            var workspace = Data.Get(key);
+
+            if (workspace != null)
+            {
+                Shell.SetCurrentPath(workspace.Path);
+            }
+            else
+            {
+                throw new Exception("Workspace key does not exist");
+            }
+        }
     }
 }

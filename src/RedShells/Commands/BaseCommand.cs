@@ -39,7 +39,7 @@ namespace RedShells.Commands
             var catalog = new TypeCatalog
             (
                 typeof(ShellContext),
-                typeof(LocalDBDataService)
+                typeof(SqliteDataService)
             );
 
             ObjectManager = new CompositionContainer(catalog);

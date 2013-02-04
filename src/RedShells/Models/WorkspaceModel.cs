@@ -14,13 +14,13 @@ namespace RedShells.Models
         public IDataService Data { get; set; }
 
         [Import]
-        public IShellContext Context { get; set; }
+        public IShellContext Shell { get; set; }
 
         public void Add(string key, string path)
         {
             if (string.IsNullOrEmpty(path))
             {
-                path = Context.GetCurrentPath();
+                path = Shell.GetCurrentPath();
             }
 
             if (string.IsNullOrEmpty(key)) throw new Exception("Key is required");
@@ -42,6 +42,8 @@ namespace RedShells.Models
             {
                 Data.Create(workspace);
             }
+
+            Shell.Write(string.Format("[{0}] '{1}' added.", workspace.Key, workspace.Path));
         }
 
         public void Add(string key)

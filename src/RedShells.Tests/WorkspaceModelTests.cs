@@ -33,7 +33,7 @@ namespace RedShells.Tests
             {
                 WorkspaceModel model = Fixture.BuildPresenter();
 
-                Mock.Get(model.Context)
+                Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
                     .Returns(@"c:\users\vitalim");
 
@@ -48,7 +48,7 @@ namespace RedShells.Tests
             {
                 WorkspaceModel model = Fixture.BuildPresenter();
 
-                Mock.Get(model.Context)
+                Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
                     .Returns(@"c:\users\vitalim");
 
@@ -63,7 +63,7 @@ namespace RedShells.Tests
             {
                 WorkspaceModel model = Fixture.BuildPresenter();
 
-                Mock.Get(model.Context)
+                Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
                     .Returns(@"c:\users\vitalim");
 

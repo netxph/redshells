@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RedShells.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RedShells.Commands
 {
-    public class BaseCommand<TModel> : Cmdlet
+    public class BaseCommand<TModel> : PSCmdlet
         where TModel: new()
     {
 
@@ -20,31 +21,12 @@ namespace RedShells.Commands
 
         public TModel Model { get; set; }
 
-        protected CompositionContainer ObjectManager { get; set; }
-
-        public T CreateObject<T>()
-            where T: new()
-        {
-            var obj = (T)Activator.CreateInstance(typeof(T));
-
-            ObjectManager.ComposeParts(obj);
-
-            return obj;
-        }
-
         protected override void BeginProcessing()
         {
-            base.BeginProcessing();
+            var shell = ObjectManager.GetObject<IShellContext>();
+            shell.Initialize(this);
 
-            var catalog = new TypeCatalog
-            (
-                typeof(ShellContext),
-                typeof(SqliteDataService)
-            );
-
-            ObjectManager = new CompositionContainer(catalog);
-
-            Model = CreateObject<TModel>();
+            Model = ObjectManager.Initialize<TModel>();
         }
 
     }

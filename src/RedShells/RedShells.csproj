@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Commands\AddWorkspaceCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="ObjectManager.cs" />
     <Compile Include="SqliteDataService.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IShellContext.cs" />

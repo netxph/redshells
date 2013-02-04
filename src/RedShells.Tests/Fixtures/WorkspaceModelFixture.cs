@@ -21,7 +21,7 @@ namespace RedShells.Tests.Fixtures
             WorkspaceModel model = new WorkspaceModel()
             {
                 Data = data.Object,
-                Context = context.Object
+                Shell = context.Object
             };
 
             return model;

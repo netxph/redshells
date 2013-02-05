@@ -12,7 +12,7 @@ namespace RedShells.Tests.Fixtures
     public class WorkspaceModelFixture
     {
 
-        public WorkspaceModel BuildPresenter()
+        public WorkspaceModel BuildModel()
         {
             var data = new Mock<IDataService>();
 

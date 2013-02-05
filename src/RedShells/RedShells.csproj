@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="Commands\AddWorkspaceCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\GetWorkspacesCommand.cs" />
+    <Compile Include="Commands\RemoveWorkspaceCommand.cs" />
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="SqliteDataService.cs" />

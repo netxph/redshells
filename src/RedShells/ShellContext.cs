@@ -1,5 +1,6 @@
 ﻿using RedShells.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -34,6 +35,11 @@ namespace RedShells
         public void SetCurrentPath(string path)
         {
             View.InvokeCommand.InvokeScript(string.Format("Set-Location -Path '{0}'", path));
+        }
+
+        public void Write(IList list)
+        {
+            View.WriteObject(list, true);
         }
     }
 }

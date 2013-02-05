@@ -7,10 +7,14 @@ namespace RedShells.Interfaces
 {
     public interface IDataService
     {
-        void Create(Workspace workspace);
+        void CreateWorkspace(Workspace workspace);
 
-        Workspace Get(string key);
+        Workspace GetWorkspace(string key);
 
-        void Update(Workspace workspace);
+        void UpdateWorkspace(Workspace workspace);
+
+        List<Workspace> GetWorkspaces();
+
+        void RemoveWorkspace(string key);
     }
 }

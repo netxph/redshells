@@ -20,18 +20,18 @@ namespace RedShells.Tests
             [Fact]
             public void ShouldAddWorkspace()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 model.Add("home", @"c:\users\vitalim");
 
                 Mock.Get(model.Data)
-                    .Verify(d => d.Create(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")));
+                    .Verify(d => d.CreateWorkspace(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")));
             }
 
             [Fact]
             public void ShouldAddWorkspaceWhenNoPath()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
@@ -40,13 +40,13 @@ namespace RedShells.Tests
                 model.Add("home");
 
                 Mock.Get(model.Data)
-                    .Verify(d => d.Create(It.IsAny<Workspace>()));
+                    .Verify(d => d.CreateWorkspace(It.IsAny<Workspace>()));
             }
 
             [Fact]
             public void ShouldAddWorkspaceRetrieveCurrentPath()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
@@ -55,13 +55,13 @@ namespace RedShells.Tests
                 model.Add("home");
 
                 Mock.Get(model.Data)
-                    .Verify(d => d.Create(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")));
+                    .Verify(d => d.CreateWorkspace(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenKeyIsEmpty()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Mock.Get(model.Shell)
                     .Setup(c => c.GetCurrentPath())
@@ -76,16 +76,16 @@ namespace RedShells.Tests
             [Fact]
             public void ShouldReplaceWhenExisting()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Mock.Get(model.Data)
-                    .Setup(d => d.Get(It.IsAny<string>()))
+                    .Setup(d => d.GetWorkspace(It.IsAny<string>()))
                     .Returns(new Workspace() { Key = "home", Path = @"c:\" });
 
                 model.Add("home", @"c:\users\vitalim");
 
                 Mock.Get(model.Data)
-                    .Verify(d => d.Update(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")), Times.Once());
+                    .Verify(d => d.UpdateWorkspace(It.Is<Workspace>(w => w.Key == "home" && w.Path == @"c:\users\vitalim")), Times.Once());
             }
 
         }
@@ -96,10 +96,10 @@ namespace RedShells.Tests
             [Fact]
             public void ShouldSetWorkspace()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Mock.Get(model.Data)
-                    .Setup(d => d.Get(It.IsAny<string>()))
+                    .Setup(d => d.GetWorkspace(It.IsAny<string>()))
                     .Returns(new Workspace() { Key = "root", Path = @"c:\" });
 
                 model.Set("root");
@@ -112,7 +112,7 @@ namespace RedShells.Tests
             public void ShouldThrowExceptionWhenKeyNotFound()
             {
 
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
 
                 Assert.Throws(typeof(Exception), () =>
                 {
@@ -124,11 +124,98 @@ namespace RedShells.Tests
             [Fact]
             public void ShouldThrowExceptionWhenKeyIsNull()
             {
-                WorkspaceModel model = Fixture.BuildPresenter();
+                WorkspaceModel model = Fixture.BuildModel();
                 
                 Assert.Throws(typeof(Exception), () =>
                 {
                     model.Set(null);
+                });
+            }
+
+        }
+
+        public class GetAllMethod : UseFixture<WorkspaceModelFixture>
+        {
+
+            [Fact]
+            public void ShouldWorkspacesNotNull()
+            {
+
+                WorkspaceModel model = Fixture.BuildModel();
+
+                Mock.Get(model.Data)
+                    .Setup(d => d.GetWorkspaces())
+                    .Returns(new List<Workspace>() { new Workspace { Key = "root", Path = @"c:\" } });
+
+                model.GetAll();
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.Write(It.Is<List<Workspace>>(w => w != null)), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldWorkspacesNotEmpty()
+            {
+                WorkspaceModel model = Fixture.BuildModel();
+
+                Mock.Get(model.Data)
+                    .Setup(d => d.GetWorkspaces())
+                    .Returns(new List<Workspace>() { new Workspace { Key = "root", Path = @"c:\" } });
+
+                model.GetAll();
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.Write(It.Is<List<Workspace>>(w => w.Count > 0)), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldGetAllDisplayWorkspaces()
+            {
+
+                WorkspaceModel model = Fixture.BuildModel();
+
+                model.GetAll();
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.Write(It.IsAny<List<Workspace>>()), Times.Once());
+
+            }
+
+        }
+
+        public class RemoveMethod : UseFixture<WorkspaceModelFixture>
+        {
+
+            [Fact]
+            public void ShouldRemoveWorkspace()
+            {
+                WorkspaceModel model = Fixture.BuildModel();
+
+                model.Remove("home");
+
+                Mock.Get(model.Data)
+                    .Verify(d => d.RemoveWorkspace("home"), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldDisplayMessageConfirmationAfterDelete()
+            {
+
+                WorkspaceModel model = Fixture.BuildModel();
+                model.Remove("home");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.Write(It.IsAny<string>()));
+
+            }
+
+            [Fact]
+            public void ShouldThrowErrorWhenKeyIsNullOrEmpty()
+            {
+                WorkspaceModel model = Fixture.BuildModel();
+                
+                Assert.Throws<Exception>(() => {
+                    model.Remove(string.Empty);    
                 });
             }
 

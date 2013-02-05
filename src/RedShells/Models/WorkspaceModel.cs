@@ -32,15 +32,15 @@ namespace RedShells.Models
             };
 
             //try to get if existing
-            var workspaceData = Data.Get(workspace.Key);
+            var workspaceData = Data.GetWorkspace(workspace.Key);
 
             if (workspaceData != null)
             {
-                Data.Update(workspace);
+                Data.UpdateWorkspace(workspace);
             }
             else
             {
-                Data.Create(workspace);
+                Data.CreateWorkspace(workspace);
             }
 
             Shell.Write(string.Format("[{0}] '{1}' added.", workspace.Key, workspace.Path));
@@ -55,7 +55,7 @@ namespace RedShells.Models
         {
             if (string.IsNullOrEmpty(key)) throw new Exception("Key is required");
 
-            var workspace = Data.Get(key);
+            var workspace = Data.GetWorkspace(key);
 
             if (workspace != null)
             {
@@ -65,6 +65,22 @@ namespace RedShells.Models
             {
                 throw new Exception("Workspace key does not exist");
             }
+        }
+
+        public void GetAll()
+        {
+            var workspaces = Data.GetWorkspaces();
+
+            Shell.Write(workspaces);
+        }
+
+        public void Remove(string key)
+        {
+            if (string.IsNullOrEmpty(key)) throw new Exception("Key is required");
+
+            Data.RemoveWorkspace(key);
+
+            Shell.Write(string.Format("[{0}] removed.", key));
         }
     }
 }

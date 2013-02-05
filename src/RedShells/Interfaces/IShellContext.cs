@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
@@ -15,5 +16,7 @@ namespace RedShells.Interfaces
         void Write(string message);
 
         void SetCurrentPath(string path);
+
+        void Write(IList list);
     }
 }

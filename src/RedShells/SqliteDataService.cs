@@ -18,6 +18,8 @@ namespace RedShells
         const string INSERT_COMMAND = @"INSERT INTO Workspace (WorkspaceKey, Path) VALUES (@WorkspaceKey, @Path)";
         const string GET_COMMAND = @"SELECT WorkspaceKey, Path FROM Workspace WHERE WorkspaceKey = @WorkspaceKey";
         const string UPDATE_COMMAND = @"UPDATE Workspace SET Path = @Path WHERE WorkspaceKey = @WorkspaceKey";
+        const string GETALL_COMMAND = @"SELECT WorkspaceKey, Path FROM Workspace";
+        const string DELETE_COMMAND = @"DELETE FROM Workspace WHERE WorkspaceKey = @WorkspaceKey";
 
         static SqliteDataService()
         {
@@ -29,7 +31,7 @@ namespace RedShells
             get { return string.Format(CONNECTION_STRING, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)); }
         }
 
-        public void Create(Workspace workspace)
+        public void CreateWorkspace(Workspace workspace)
         {
             using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
@@ -51,7 +53,7 @@ namespace RedShells
 
         }
 
-        public Workspace Get(string key)
+        public Workspace GetWorkspace(string key)
         {
             using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
@@ -91,13 +93,70 @@ namespace RedShells
             }
         }
 
-        public void Update(Workspace workspace)
+        public void UpdateWorkspace(Workspace workspace)
         {
             using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(UPDATE_COMMAND, connection);
                 command.Parameters.AddWithValue("@Path", workspace.Path);
                 command.Parameters.AddWithValue("@WorkspaceKey", workspace.Key);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                finally
+                {
+                    command.Dispose();
+                    connection.Close();
+                }
+            }
+        }
+
+
+        public List<Workspace> GetWorkspaces()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+
+                SQLiteCommand command = new SQLiteCommand(GETALL_COMMAND, connection);
+                SQLiteDataReader reader = null;
+
+                try
+                {
+                    connection.Open();
+                    reader = command.ExecuteReader();
+
+                    List<Workspace> workspaces = new List<Workspace>();
+                    while (reader.Read())
+                    {
+                        Workspace workspace = new Workspace() { Key = reader["WorkspaceKey"].ToString(), Path = reader["Path"].ToString() };
+                        workspaces.Add(workspace);
+                    }
+
+                    return workspaces;
+                }
+                finally
+                {
+                    if (reader != null)
+                    {
+                        reader.Close();
+                        reader.Dispose();
+                    }
+
+                    command.Dispose();
+                    connection.Close();
+                }
+            }
+        }
+
+        public void RemoveWorkspace(string key)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                SQLiteCommand command = new SQLiteCommand(DELETE_COMMAND, connection);
+                command.Parameters.AddWithValue("@WorkspaceKey", key);
 
                 try
                 {

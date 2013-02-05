@@ -18,5 +18,7 @@ namespace RedShells.Interfaces
         void SetCurrentPath(string path);
 
         void Write(IList list);
+
+        void RunScript(string applicationName, List<string> script);
     }
 }

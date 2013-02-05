@@ -1,4 +1,5 @@
-﻿using RedShells.Interfaces;
+﻿using Microsoft.VisualBasic;
+using RedShells.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RedShells
 {
@@ -40,6 +43,17 @@ namespace RedShells
         public void Write(IList list)
         {
             View.WriteObject(list, true);
+        }
+
+        public void RunScript(string applicationName, List<string> script)
+        {
+            Interaction.AppActivate(applicationName);
+
+            foreach (var sequence in script)
+            {
+                Thread.Sleep(200);
+                SendKeys.SendWait(sequence);
+            }
         }
     }
 }

@@ -48,6 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -57,6 +58,7 @@
     <Reference Include="System.Data.SQLite.Linq">
       <HintPath>..\..\packages\System.Data.SQLite.1.0.84.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,12 +67,18 @@
     <Reference Include="System.Management.Automation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddScriptCommand.cs" />
     <Compile Include="Commands\AddWorkspaceCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\GetScriptsCommand.cs" />
     <Compile Include="Commands\GetWorkspacesCommand.cs" />
+    <Compile Include="Commands\RemoveScriptCommand.cs" />
     <Compile Include="Commands\RemoveWorkspaceCommand.cs" />
+    <Compile Include="Commands\InvokeScriptCommand.cs" />
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
+    <Compile Include="Models\ScriptModel.cs" />
     <Compile Include="ObjectManager.cs" />
+    <Compile Include="Script.cs" />
     <Compile Include="SqliteDataService.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IShellContext.cs" />

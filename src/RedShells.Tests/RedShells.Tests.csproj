@@ -57,9 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\ScriptModelFixture.cs" />
     <Compile Include="Fixtures\WorkspaceModelFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fixtures\UseFixture.cs" />
+    <Compile Include="ScriptModelTests.cs" />
     <Compile Include="WorkspaceModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

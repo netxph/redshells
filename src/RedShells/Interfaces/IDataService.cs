@@ -16,5 +16,15 @@ namespace RedShells.Interfaces
         List<Workspace> GetWorkspaces();
 
         void RemoveWorkspace(string key);
+
+        void CreateScript(Script script);
+
+        void UpdateScript(Script script);
+
+        Script GetScript(string key);
+
+        List<Script> GetScripts();
+
+        void RemoveScript(string key);
     }
 }

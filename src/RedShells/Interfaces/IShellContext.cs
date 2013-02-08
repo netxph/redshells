@@ -9,6 +9,9 @@ namespace RedShells.Interfaces
 {
     public interface IShellContext
     {
+        //TODO: Move this to its own class
+        Dictionary<string, string> ContextStore { get; set; }
+
         string GetCurrentPath();
 
         void Initialize(PSCmdlet command);

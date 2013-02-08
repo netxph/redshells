@@ -16,6 +16,18 @@ namespace RedShells.Models
         [Import]
         public IShellContext Shell { get; set; }
 
+        [Import]
+        public IPersistenceStore Store { get; set; }
+
+        public string LastPath
+        {
+            get { return Store.GetValue<string>("LastPath"); }
+            set
+            {
+                Store.Add("LastPath", value);
+            }
+        }
+
         public void Add(string key, string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -59,6 +71,9 @@ namespace RedShells.Models
 
             if (workspace != null)
             {
+                //save current path
+                LastPath = Shell.GetCurrentPath();
+
                 Shell.SetCurrentPath(workspace.Path);
             }
             else
@@ -81,6 +96,22 @@ namespace RedShells.Models
             Data.RemoveWorkspace(key);
 
             Shell.Write(string.Format("[{0}] removed.", key));
+        }
+
+        public void MoveBack()
+        {
+            if (!string.IsNullOrEmpty(LastPath))
+            {
+                var path = LastPath;
+                LastPath = Shell.GetCurrentPath();
+
+                Shell.SetCurrentPath(path);
+            }
+        }
+
+        public void Push()
+        {
+            LastPath = Shell.GetCurrentPath();
         }
     }
 }

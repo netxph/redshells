@@ -17,8 +17,14 @@ namespace RedShells
     public class ShellContext : IShellContext
     {
 
+        public ShellContext()
+        {
+            ContextStore = new Dictionary<string, string>();
+        }
+
         protected PSCmdlet View { get; set; }
 
+        public Dictionary<string, string> ContextStore { get; set; }
 
         public string GetCurrentPath()
         {
@@ -55,5 +61,6 @@ namespace RedShells
                 SendKeys.SendWait(sequence);
             }
         }
+
     }
 }

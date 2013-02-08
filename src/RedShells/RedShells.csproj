@@ -72,12 +72,15 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\GetScriptsCommand.cs" />
     <Compile Include="Commands\GetWorkspacesCommand.cs" />
+    <Compile Include="Commands\PushWorkspaceCommand.cs" />
     <Compile Include="Commands\RemoveScriptCommand.cs" />
     <Compile Include="Commands\RemoveWorkspaceCommand.cs" />
     <Compile Include="Commands\InvokeScriptCommand.cs" />
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
+    <Compile Include="Interfaces\IPersistenceStore.cs" />
     <Compile Include="Models\ScriptModel.cs" />
     <Compile Include="ObjectManager.cs" />
+    <Compile Include="PersistenceStore.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="SqliteDataService.cs" />
     <Compile Include="Interfaces\IDataService.cs" />

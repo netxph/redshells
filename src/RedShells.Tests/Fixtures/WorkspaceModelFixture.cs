@@ -17,11 +17,15 @@ namespace RedShells.Tests.Fixtures
             var data = new Mock<IDataService>();
 
             var context = new Mock<IShellContext>();
+            context.SetupAllProperties();
 
+            var store = new Mock<IPersistenceStore>();
+            
             WorkspaceModel model = new WorkspaceModel()
             {
                 Data = data.Object,
-                Shell = context.Object
+                Shell = context.Object,
+                Store = store.Object
             };
 
             return model;

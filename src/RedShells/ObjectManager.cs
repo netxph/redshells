@@ -18,7 +18,8 @@ namespace RedShells
             var catalog = new TypeCatalog
             (
                 typeof(ShellContext),
-                typeof(SqliteDataService)
+                typeof(SqliteDataService),
+                typeof(PersistenceStore)
             );
 
             Container = new CompositionContainer(catalog);

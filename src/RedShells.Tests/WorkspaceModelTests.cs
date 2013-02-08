@@ -132,6 +132,29 @@ namespace RedShells.Tests
                 });
             }
 
+            [Fact]
+            public void ShouldStoreCurrentPathBeforeSwitch()
+            {
+                WorkspaceModel model = Fixture.BuildModel();
+
+                Mock.Get(model.Store)
+                    .Setup(st => st.GetValue<string>("LastPath"))
+                    .Returns(@"c:\current");
+
+                Mock.Get(model.Shell)
+                    .Setup(s => s.GetCurrentPath())
+                    .Returns(@"c:\current");
+
+                Mock.Get(model.Data)
+                    .Setup(d => d.GetWorkspace("home"))
+                    .Returns(new Workspace() { Key = "home", Path = @"c:\" });
+                
+                model.Set("home");
+
+                Assert.Equal(@"c:\current", model.LastPath);
+
+            }
+
         }
 
         public class GetAllMethod : UseFixture<WorkspaceModelFixture>
@@ -217,6 +240,63 @@ namespace RedShells.Tests
                 Assert.Throws<Exception>(() => {
                     model.Remove(string.Empty);    
                 });
+            }
+
+        }
+
+        public class MoveBackMethod : UseFixture<WorkspaceModelFixture>
+        {
+
+            [Fact]
+            public void ShouldMoveToPreviousPath()
+            {
+                var model = Fixture.BuildModel();
+
+                Mock.Get(model.Store)
+                    .Setup(st => st.GetValue<string>("LastPath"))
+                    .Returns(@"c:\current");
+
+                model.MoveBack();
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.SetCurrentPath(@"c:\current"), Times.Once());
+
+            }
+
+            [Fact]
+            public void ShouldNotSetPathWhenLastPathIsNull()
+            {
+
+                var model = Fixture.BuildModel();
+                model.LastPath = null;
+
+                model.MoveBack();
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.SetCurrentPath(It.IsAny<string>()), Times.Never());
+
+            }
+
+        }
+
+        public class PushMethod : UseFixture<WorkspaceModelFixture>
+        {
+
+            [Fact]
+            public void ShouldSaveCurrentPath()
+            {
+
+                var model = Fixture.BuildModel();
+
+                Mock.Get(model.Shell)
+                    .Setup(s => s.GetCurrentPath())
+                    .Returns(@"c:\current_path");
+
+                model.Push();
+
+                Mock.Get(model.Store)
+                    .Verify(st => st.Add("LastPath", @"c:\current_path"), Times.Once());
+
             }
 
         }

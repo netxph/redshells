@@ -9,8 +9,6 @@ namespace RedShells.Interfaces
 {
     public interface IShellContext
     {
-        //TODO: Move this to its own class
-        Dictionary<string, string> ContextStore { get; set; }
 
         string GetCurrentPath();
 
@@ -23,5 +21,11 @@ namespace RedShells.Interfaces
         void Write(IList list);
 
         void RunScript(string applicationName, List<string> script);
+
+        void SaveLocation(string source, string destination);
+
+        void GetFiles(string files, string destination);
+
+        DependencyPath RetrieveLocation();
     }
 }

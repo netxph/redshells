@@ -62,5 +62,19 @@ namespace RedShells
             }
         }
 
+        public void SaveLocation(string source, string destination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetFiles(string files, string destination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DependencyPath RetrieveLocation()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

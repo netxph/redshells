@@ -18,14 +18,38 @@ namespace RedShells.Tests
         {
 
             [Fact]
-            public void ShouldPersistLocationLocally()
+            public void ShouldPersistNameLocally()
             {
                 var model = Fixture.BuildModel();
 
-                model.Update(@"c:\lib", @"c:\dest");
+                model.Update("ext", @"c:\lib", @"c:\dest");
 
                 Mock.Get(model.Shell)
-                    .Verify(s => s.SaveLocation(@"c:\lib", @"c:\dest"), Times.Once());
+                    .Verify(s => s.SaveLocation(It.Is<DependencyPath>(dp => dp.Name == "ext")), Times.Once());
+
+            }
+
+            [Fact]
+            public void ShouldPersistSourceLocally()
+            {
+                var model = Fixture.BuildModel();
+
+                model.Update("ext", @"c:\lib", @"c:\dest");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.SaveLocation(It.Is<DependencyPath>(dp => dp.Source == @"c:\lib")), Times.Once());
+
+            }
+
+            [Fact]
+            public void ShouldPersistDestinationLocally()
+            {
+                var model = Fixture.BuildModel();
+
+                model.Update("ext", @"c:\lib", @"c:\dest");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.SaveLocation(It.Is<DependencyPath>(dp => dp.Destination == @"c:\dest")), Times.Once());
 
             }
 
@@ -35,7 +59,7 @@ namespace RedShells.Tests
 
                 var model = Fixture.BuildModel();
 
-                model.Update(@"c:\lib", @"c:\dest");
+                model.Update("ext", @"c:\lib", @"c:\dest");
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.GetFiles(@"c:\lib\*.exe", @"c:\dest"), Times.Once());
@@ -48,7 +72,7 @@ namespace RedShells.Tests
 
                 var model = Fixture.BuildModel();
 
-                model.Update(@"c:\lib", @"c:\dest");
+                model.Update("ext", @"c:\lib", @"c:\dest");
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Once());
@@ -61,7 +85,7 @@ namespace RedShells.Tests
 
                 var model = Fixture.BuildModel();
 
-                model.Update(@"c:\lib", @"c:\dest");
+                model.Update("ext", @"c:\lib", @"c:\dest");
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.GetFiles(@"c:\lib\*.pdb", @"c:\dest"), Times.Once());
@@ -75,10 +99,10 @@ namespace RedShells.Tests
                 var model = Fixture.BuildModel();
 
                 Mock.Get(model.Shell)
-                    .Setup(s => s.RetrieveLocation())
+                    .Setup(s => s.RetrieveLocation("ext"))
                     .Returns(new DependencyPath() { Source = @"c:\lib", Destination = @"c:\dest" });
 
-                model.Update(string.Empty, @"c:\dest");
+                model.Update("ext", string.Empty, @"c:\dest");
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Once());
@@ -92,16 +116,46 @@ namespace RedShells.Tests
                 var model = Fixture.BuildModel();
 
                 Mock.Get(model.Shell)
-                    .Setup(s => s.RetrieveLocation())
+                    .Setup(s => s.RetrieveLocation("ext"))
                     .Returns(new DependencyPath() { Source = @"c:\lib", Destination = @"c:\dest" });
 
-                model.Update(@"c:\lib", @"c:\dest");
+                model.Update("ext", @"c:\lib", @"c:\dest");
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Once());
 
             }
 
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsEmpty()
+            {
+
+                var model = Fixture.BuildModel();
+
+                Assert.Throws<Exception>(() => model.Update(string.Empty, @"c:\lib", @"c:\dest"));
+
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenSourceIsMissing()
+            {
+
+                var model = Fixture.BuildModel();
+
+                Assert.Throws<Exception>(() => model.Update("ext", string.Empty, @"c:\dest"));
+
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenDestinationIsMissing()
+            {
+
+                var model = Fixture.BuildModel();
+
+                Assert.Throws<Exception>(() => model.Update("ext", @"c:\lib", string.Empty));
+
+            }
+            
         }
 
     }

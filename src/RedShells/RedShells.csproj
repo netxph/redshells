@@ -49,6 +49,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -77,6 +80,8 @@
     <Compile Include="Commands\RemoveWorkspaceCommand.cs" />
     <Compile Include="Commands\InvokeScriptCommand.cs" />
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
+    <Compile Include="Commands\UpdateLibrariesCommand.cs" />
+    <Compile Include="LibraryManager.cs" />
     <Compile Include="DependencyPath.cs" />
     <Compile Include="Interfaces\IPersistenceStore.cs" />
     <Compile Include="Models\DependencyModel.cs" />

@@ -16,16 +16,18 @@ namespace RedShells.Interfaces
 
         void Write(string message);
 
+        void WriteVerbose(string message);
+
         void SetCurrentPath(string path);
 
         void Write(IList list);
 
         void RunScript(string applicationName, List<string> script);
 
-        void SaveLocation(string source, string destination);
+        void SaveLocation(DependencyPath path);
 
         void GetFiles(string files, string destination);
 
-        DependencyPath RetrieveLocation();
+        DependencyPath RetrieveLocation(string name);
     }
 }

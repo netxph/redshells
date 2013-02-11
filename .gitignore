@@ -26,6 +26,7 @@
 *.swp
 *.gallio
 *.ldf
+.libdef
 ipch/
 obj/
 [Bb]in

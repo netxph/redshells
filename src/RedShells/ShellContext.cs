@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using RedShells.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
@@ -62,19 +64,42 @@ namespace RedShells
             }
         }
 
-        public void SaveLocation(string source, string destination)
-        {
-            throw new NotImplementedException();
-        }
-
         public void GetFiles(string files, string destination)
         {
-            throw new NotImplementedException();
+            var sourceDirectory = Path.GetDirectoryName(files);
+            var pattern = Path.GetFileName(files);
+
+            var sourceFiles = Directory.GetFiles(sourceDirectory, pattern);
+
+            foreach (var file in sourceFiles)
+            {
+                var destFile = Path.Combine(destination, Path.GetFileName(file));
+
+                File.Copy(file, destFile, true);
+
+                WriteVerbose(string.Format("{0} -> {1}", file, destFile));
+            }
         }
 
-        public DependencyPath RetrieveLocation()
+        public void SaveLocation(DependencyPath path)
         {
-            throw new NotImplementedException();
+            string saveFile = Path.Combine(GetCurrentPath(), ".libdef");
+
+            LibraryManager manager = new LibraryManager(saveFile);
+            manager.Append(path);
+        }
+
+        public DependencyPath RetrieveLocation(string name)
+        {
+            string saveFile = Path.Combine(GetCurrentPath(), ".libdef");
+
+            LibraryManager manager = new LibraryManager(saveFile);
+            return manager.Get(name);
+        }
+
+        public void WriteVerbose(string message)
+        {
+            View.WriteVerbose(message);
         }
     }
 }

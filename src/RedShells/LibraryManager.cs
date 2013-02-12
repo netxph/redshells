@@ -46,6 +46,7 @@ namespace RedShells
 
         public void SaveAll(List<DependencyPath> paths)
         {
+            File.SetAttributes(DefinitionFile, FileAttributes.Normal);
 
             using (var writer = new StreamWriter(DefinitionFile))
             {
@@ -54,6 +55,8 @@ namespace RedShells
                 writer.Flush();
                 writer.Close();
             }
+
+            File.SetAttributes(DefinitionFile, FileAttributes.Hidden);
 
         }
 

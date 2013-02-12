@@ -155,7 +155,43 @@ namespace RedShells.Tests
                 Assert.Throws<Exception>(() => model.Update("ext", @"c:\lib", string.Empty));
 
             }
-            
+
+            [Fact]
+            public void ShouldOverrideFilterStringXML()
+            {
+
+                var model = Fixture.BuildModel();
+
+                model.Update("ext", @"c:\lib", @"c:\dest", "*.xml,*.txt");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\*.xml", @"c:\dest"), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldOverrideFilterStringTXT()
+            {
+
+                var model = Fixture.BuildModel();
+
+                model.Update("ext", @"c:\lib", @"c:\dest", "*.xml,*.txt");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\*.txt", @"c:\dest"), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldNotFilterDefaultWhenOverriden()
+            {
+
+                var model = Fixture.BuildModel();
+
+                model.Update("ext", @"c:\lib", @"c:\dest", "*.xml,*.txt");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Never());
+
+            }
         }
 
     }

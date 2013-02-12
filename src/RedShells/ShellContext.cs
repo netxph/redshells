@@ -75,9 +75,28 @@ namespace RedShells
             {
                 var destFile = Path.Combine(destination, Path.GetFileName(file));
 
-                File.Copy(file, destFile, true);
+                try
+                {
+                    if (File.Exists(destFile) && File.GetAttributes(destFile) != FileAttributes.Normal)
+                    {
+                        var oldAttr = File.GetAttributes(destFile);
 
-                WriteVerbose(string.Format("{0} -> {1}", file, destFile));
+                        File.SetAttributes(destFile, FileAttributes.Normal);
+                        File.Copy(file, destFile, true);
+                        File.SetAttributes(destFile, oldAttr);
+                    }
+                    else
+                    {
+                        File.Copy(file, destFile, true);
+                    }
+
+                    WriteVerbose(string.Format("{0} -> {1}", file, destFile));
+                }
+                catch
+                {
+                    Write(string.Format("Failed to copy {0}", file));
+                }
+                
             }
         }
 

@@ -22,11 +22,14 @@ namespace RedShells.Commands
         [Parameter(Position = 2)]
         public string Destination { get; set; }
 
+        [Parameter(Position = 3)]
+        public string OverrideFilter { get; set; }
+
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
 
-            Model.Update(Name, Source, Destination);
+            Model.Update(Name, Source, Destination, OverrideFilter);
         }
 
     }

@@ -29,5 +29,7 @@ namespace RedShells.Interfaces
         void GetFiles(string files, string destination);
 
         DependencyPath RetrieveLocation(string name);
+
+        void ShellInvoke(string command);
     }
 }

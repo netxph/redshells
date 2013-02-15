@@ -120,5 +120,10 @@ namespace RedShells
         {
             View.WriteVerbose(message);
         }
+
+        public void ShellInvoke(string command)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

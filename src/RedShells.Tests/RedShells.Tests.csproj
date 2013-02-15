@@ -60,10 +60,12 @@
     <Compile Include="DependencyModelTests.cs" />
     <Compile Include="Fixtures\DependencyModelFixture.cs" />
     <Compile Include="Fixtures\ScriptModelFixture.cs" />
+    <Compile Include="Fixtures\TaskEventModelFixture.cs" />
     <Compile Include="Fixtures\WorkspaceModelFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fixtures\UseFixture.cs" />
     <Compile Include="ScriptModelTests.cs" />
+    <Compile Include="TaskEventModelTests.cs" />
     <Compile Include="WorkspaceModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

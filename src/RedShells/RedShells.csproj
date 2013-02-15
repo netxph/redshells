@@ -80,12 +80,15 @@
     <Compile Include="Commands\RemoveWorkspaceCommand.cs" />
     <Compile Include="Commands\InvokeScriptCommand.cs" />
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
+    <Compile Include="Commands\StartTaskEventCommand.cs" />
     <Compile Include="Commands\UpdateLibrariesCommand.cs" />
+    <Compile Include="Interfaces\ITaskEventListener.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="DependencyPath.cs" />
     <Compile Include="Interfaces\IPersistenceStore.cs" />
     <Compile Include="Models\DependencyModel.cs" />
     <Compile Include="Models\ScriptModel.cs" />
+    <Compile Include="Models\TaskEventModel.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="PersistenceStore.cs" />
     <Compile Include="Script.cs" />

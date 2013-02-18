@@ -10,8 +10,8 @@ namespace RedShells.Interfaces
     {
         string Name { get; set; }
 
-        void Listen();
+        void Listen(string args);
         
-        event EventHandler OnEventTriggered;
+        event EventHandler EventTriggered;
     }
 }

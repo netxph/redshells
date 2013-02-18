@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RedShells.Listeners;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -19,7 +20,8 @@ namespace RedShells
             (
                 typeof(ShellContext),
                 typeof(SqliteDataService),
-                typeof(PersistenceStore)
+                typeof(PersistenceStore),
+                typeof(FileChangeListener)
             );
 
             Container = new CompositionContainer(catalog);

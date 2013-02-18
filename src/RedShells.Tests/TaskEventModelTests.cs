@@ -24,7 +24,7 @@ namespace RedShells.Tests
                 
                 model.Listen("FileChange", "bin/debug/*.dll", "test.exe -testargs");
                 Mock.Get(model.Listeners[0])
-                    .Raise(l => l.OnEventTriggered += null, EventArgs.Empty);
+                    .Raise(l => l.EventTriggered += null, EventArgs.Empty);
 
                 Mock.Get(model.Shell)
                     .Verify(s => s.ShellInvoke("test.exe -testargs"), Times.Once());

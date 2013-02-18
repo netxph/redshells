@@ -49,6 +49,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -86,6 +89,7 @@
     <Compile Include="LibraryManager.cs" />
     <Compile Include="DependencyPath.cs" />
     <Compile Include="Interfaces\IPersistenceStore.cs" />
+    <Compile Include="Listeners\FileChangeListener.cs" />
     <Compile Include="Models\DependencyModel.cs" />
     <Compile Include="Models\ScriptModel.cs" />
     <Compile Include="Models\TaskEventModel.cs" />

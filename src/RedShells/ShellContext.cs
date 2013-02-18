@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
@@ -123,7 +124,37 @@ namespace RedShells
 
         public void ShellInvoke(string command)
         {
-            throw new NotImplementedException();
+            var process = new Process();
+
+            process.StartInfo = new ProcessStartInfo("cmd.exe", string.Format("/c {0}", command)) { UseShellExecute = false };
+            process.Start();
+            process.WaitForExit();
+        }
+
+        public void Wait(Action action, ConsoleKey exitKey)
+        {
+            bool exitKeyPressed = false;
+
+            do
+            {
+                Thread.Sleep(1000);
+
+                if (action != null)
+                {
+                    action();
+                }
+
+                if (View.Host.UI.RawUI.KeyAvailable == true)
+                {
+                    View.Host.UI.RawUI.FlushInputBuffer();
+
+                    var key = View.Host.UI.RawUI.ReadKey(System.Management.Automation.Host.ReadKeyOptions.IncludeKeyDown);
+                    exitKeyPressed = key.Character == (char)exitKey;
+                    
+                }
+
+            } while (!exitKeyPressed);
+
         }
     }
 }

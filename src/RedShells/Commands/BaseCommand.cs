@@ -25,7 +25,7 @@ namespace RedShells.Commands
         {
             var shell = ObjectManager.GetObject<IShellContext>();
             shell.Initialize(this);
-
+            
             Model = ObjectManager.Initialize<TModel>();
         }
 

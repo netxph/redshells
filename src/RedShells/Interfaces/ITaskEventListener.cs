@@ -11,7 +11,9 @@ namespace RedShells.Interfaces
         string Name { get; set; }
 
         void Listen(string args);
-        
+
+        void ClearHandlers();
+
         event EventHandler EventTriggered;
     }
 }

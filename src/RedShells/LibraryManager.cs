@@ -46,7 +46,10 @@ namespace RedShells
 
         public void SaveAll(List<DependencyPath> paths)
         {
-            File.SetAttributes(DefinitionFile, FileAttributes.Normal);
+            if (File.Exists(DefinitionFile))
+            {
+                File.SetAttributes(DefinitionFile, FileAttributes.Normal);
+            }
 
             using (var writer = new StreamWriter(DefinitionFile))
             {

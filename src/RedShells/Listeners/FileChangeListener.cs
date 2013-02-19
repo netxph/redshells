@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RedShells.Listeners
@@ -16,8 +17,7 @@ namespace RedShells.Listeners
     {
 
         const string FILE_CHANGE_KEY = "FileChange";
-        private int _fileCount = 0;
-        private DateTime _lastChanged = DateTime.MinValue;
+        ExtendedFileSystemWatcher _watcher = null;
 
         [Import]
         public IShellContext Shell { get; set; }
@@ -26,50 +26,39 @@ namespace RedShells.Listeners
         {
             Name = FILE_CHANGE_KEY;
         }
-        
+
         public string Name { get; set; }
 
         public void Listen(string args)
         {
+            var path = args;
+
+            if (!Path.IsPathRooted(path))
+            {
+                path = Path.GetFullPath(Path.Combine(Shell.GetCurrentPath(), path));
+            }
+
             Shell.Write("File change watcher started. Press [ENTER] to exit.");
 
-            Shell.Wait(() =>
+            using (_watcher = new ExtendedFileSystemWatcher(path))
             {
-                if (CheckIfChanged(args)) 
-                    OnEventTriggered();
+                _watcher.SafeChanged += _watcher_SafeChanged;
 
-            }, ConsoleKey.Enter);
+                _watcher.Start();
+
+                Shell.Wait(null, ConsoleKey.Enter);
+                _watcher.Stop();
+                _watcher.SafeChanged -= _watcher_SafeChanged;
+            }
         }
 
-        protected virtual bool CheckIfChanged(string path)
+        void _watcher_SafeChanged(object sender, EventArgs e)
         {
-            bool fileChanged = false;
+            _watcher.EnableRaisingEvents = false;
 
-            path = Path.Combine(Shell.GetCurrentPath(), path);
-            path = Path.GetFullPath(path);
+            OnEventTriggered();
 
-            //check file count
-            var files = Directory.GetFiles(path, "*.*")
-                .Where(f => f.ToLower().EndsWith(".dll") || f.ToLower().EndsWith(".exe"))
-                .ToList();
-
-            var fileCount = files.Count();
-
-            if (fileCount != _fileCount)
-            {
-                _fileCount = files.Count;
-                fileChanged = true;
-            }
-
-            var lastChanged = files.Max(f => File.GetLastWriteTimeUtc(f));
-
-            if (lastChanged > _lastChanged)
-            {
-                _lastChanged = lastChanged;
-                fileChanged = true;
-            }
-
-            return fileChanged;
+            _watcher.EnableRaisingEvents = true;
         }
 
         protected virtual void OnEventTriggered()
@@ -77,6 +66,17 @@ namespace RedShells.Listeners
             if (EventTriggered != null)
             {
                 EventTriggered(this, EventArgs.Empty);
+            }
+        }
+
+        public void ClearHandlers()
+        {
+            if (EventTriggered != null)
+            {
+                foreach (var handler in EventTriggered.GetInvocationList())
+                {
+                    EventTriggered -= (EventHandler)handler;
+                }
             }
         }
 

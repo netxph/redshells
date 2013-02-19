@@ -85,6 +85,9 @@
     <Compile Include="Commands\SetWorkspaceCommand.cs" />
     <Compile Include="Commands\StartTaskEventCommand.cs" />
     <Compile Include="Commands\UpdateLibrariesCommand.cs" />
+    <Compile Include="ExtendedFileSystemWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Interfaces\ITaskEventListener.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="DependencyPath.cs" />

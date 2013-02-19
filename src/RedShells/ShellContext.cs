@@ -126,7 +126,11 @@ namespace RedShells
         {
             var process = new Process();
 
-            process.StartInfo = new ProcessStartInfo("cmd.exe", string.Format("/c {0}", command)) { UseShellExecute = false };
+            process.StartInfo = new ProcessStartInfo("cmd.exe", string.Format("/c {0}", command)) 
+            { 
+                UseShellExecute = false,
+                WorkingDirectory = GetCurrentPath()
+            };
             process.Start();
             process.WaitForExit();
         }
@@ -137,7 +141,7 @@ namespace RedShells
 
             do
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
 
                 if (action != null)
                 {

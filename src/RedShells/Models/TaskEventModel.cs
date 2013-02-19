@@ -26,10 +26,14 @@ namespace RedShells.Models
 
                 if (listener != null)
                 {
-                    listener.EventTriggered += (sender, e) =>
+                    listener.ClearHandlers();
+
+                    EventHandler handler = (sender, e) =>
                     {
                         Shell.ShellInvoke(taskCommand);
                     };
+
+                    listener.EventTriggered += handler;
 
                     listener.Listen(handlerParameters);
                 }

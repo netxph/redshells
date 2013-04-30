@@ -30,6 +30,8 @@ namespace RedShells.Interfaces
 
         DependencyPath RetrieveLocation(string name);
 
+        List<DependencyPath> RetrieveAll();
+
         void ShellInvoke(string command);
 
         void Wait(Action action, ConsoleKey exitKey);

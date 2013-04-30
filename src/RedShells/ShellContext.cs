@@ -117,6 +117,14 @@ namespace RedShells
             return manager.Get(name);
         }
 
+        public List<DependencyPath> RetrieveAll()
+        {
+            string saveFile = Path.Combine(GetCurrentPath(), ".libdef");
+
+            LibraryManager manager = new LibraryManager(saveFile);
+            return manager.GetAll();
+        }
+
         public void WriteVerbose(string message)
         {
             View.WriteVerbose(message);

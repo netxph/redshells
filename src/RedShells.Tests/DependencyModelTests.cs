@@ -192,6 +192,7 @@ namespace RedShells.Tests
                     .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Never());
 
             }
+            
         }
 
     }

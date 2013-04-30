@@ -13,6 +13,7 @@ namespace RedShells
         public string Source { get; set; }
         public string Destination { get; set; }
         public string Filter { get; set; }
+        public string Namespaces { get; set; }
 
     }
 }

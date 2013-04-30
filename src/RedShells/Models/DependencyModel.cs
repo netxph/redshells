@@ -22,12 +22,12 @@ namespace RedShells.Models
 
         public void Update(string name, string sourcePath, string destination)
         {
-            Update(name, sourcePath, destination, "<ns>.dll,<ns>.exe,<ns>.pdb", "*");
+            Update(name, sourcePath, destination, "<ns>*.dll,<ns>*.exe,<ns>*.pdb", "");
         }
 
         public void Update(string name, string sourcePath, string destination, string filter)
         {
-            Update(name, sourcePath, destination, filter, "*");
+            Update(name, sourcePath, destination, filter, "");
         }
 
         public void Update(string name, string sourcePath, string destination, string filter, string namespaces)
@@ -46,8 +46,8 @@ namespace RedShells.Models
 
             if (string.IsNullOrEmpty(sourcePath)) throw new Exception("Memory file is missing, you should supply source path");
             if (string.IsNullOrEmpty(destination)) throw new Exception("Memory file is missing, you should supply destination");
-            if (string.IsNullOrEmpty(filter)) filter = "<ns>.dll,<ns>.exe,<ns>.pdb";
-            if (string.IsNullOrEmpty(namespaces)) namespaces = "*";
+            if (string.IsNullOrEmpty(filter)) filter = "<ns>*.dll,<ns>*.exe,<ns>*.pdb";
+            if (string.IsNullOrEmpty(namespaces)) namespaces = "";
 
             if (!Path.IsPathRooted(sourcePath))
             {
@@ -74,7 +74,17 @@ namespace RedShells.Models
         private List<string> assembleFilter(string filter, string namespaces)
         {
             var filters = new List<string>();
-            var ns = namespaces.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            string[] ns = null;
+
+            if (!string.IsNullOrEmpty(namespaces))
+            {
+                ns = namespaces.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            else
+            {
+                ns = new string[] { "" };
+            }
 
             foreach (var token in ns)
             {

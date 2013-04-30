@@ -192,6 +192,36 @@ namespace RedShells.Tests
                     .Verify(s => s.GetFiles(@"c:\lib\*.dll", @"c:\dest"), Times.Never());
 
             }
+
+            [Fact]
+            public void ShouldReplaceFilterBasedOnNamespace()
+            {
+                var model = Fixture.BuildModel();
+                model.Update("ext", @"c:\lib", @"c:\dest", "<ns>*.xml,<ns>*.txt", "Sample,Another");
+                
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\Sample*.txt", @"c:\dest"), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldReplaceFilterBasedOnSecondNamespace()
+            {
+                var model = Fixture.BuildModel();
+                model.Update("ext", @"c:\lib", @"c:\dest", "<ns>*.xml,<ns>*.txt", "Sample,Another");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\Another*.txt", @"c:\dest"), Times.Once());
+            }
+
+            [Fact]
+            public void ShouldReplaceFilterWithEmptyIfNoNamespace()
+            {
+                var model = Fixture.BuildModel();
+                model.Update("ext", @"c:\lib", @"c:\dest", "<ns>*.xml,<ns>*.txt", "");
+
+                Mock.Get(model.Shell)
+                    .Verify(s => s.GetFiles(@"c:\lib\*.txt", @"c:\dest"), Times.Once());
+            }
             
         }
 

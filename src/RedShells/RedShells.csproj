@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\RedShells.Core\RedShells.Core.csproj" />
+    <ProjectReference Include="..\RedShells.Data\RedShells.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6.1</TargetFramework>
+  </PropertyGroup>
+
+</Project>

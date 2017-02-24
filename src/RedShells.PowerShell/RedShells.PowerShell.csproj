@@ -9,5 +9,6 @@
     <ProjectReference Include="..\RedShells.Core\RedShells.Core.csproj" />
     <ProjectReference Include="..\RedShells\RedShells.csproj" />
     <ProjectReference Include="..\RedShells.Data\RedShells.Data.csproj" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
 </Project>

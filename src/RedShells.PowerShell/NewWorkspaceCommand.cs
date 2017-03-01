@@ -1,8 +1,9 @@
 using System;
 using System.Management.Automation;
 using RedShells;
-using RedShells.Data;
+using RedShells;
 using RedShells.Core.Interfaces;
+using RedShells.Core;
 
 namespace RedShells.PowerShell
 {
@@ -16,7 +17,7 @@ namespace RedShells.PowerShell
         protected IWorkspaceRepository Repository { get { return _repository; } }
 
         public NewWorkspaceCommand()
-            : this(new WorkspaceRepository(new DataContext()))
+            : this(new WorkspaceRepository(new Data.DataContext()))
         {
         }
 
@@ -43,7 +44,18 @@ namespace RedShells.PowerShell
                 Directory = this.SessionState.Path.CurrentFileSystemLocation.Path;
             }
 
-            WriteObject(string.Format("{0}:{1}", Name, Directory));
+            var workspace = Repository.Get(Name);
+
+            if(workspace != null)
+            {
+                Repository.Edit(workspace);
+            }
+            else
+            {
+                Repository.Add(new Workspace(Name, Directory));
+            }
+
+            WriteObject(string.Format("Workspace [{0}} created.", Name));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace RedShells.PowerShell
         protected IWorkspaceRepository Repository { get { return _repository; } }
 
         public NewWorkspaceCommand()
-            : this(new WorkspaceRepository(new Data.DataContext()))
+            : this(new WorkspaceRepository())
         {
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using RedShells;
 using RedShells.Core.Interfaces;
 using RedShells.Core;
@@ -8,7 +9,7 @@ namespace RedShells
     public class WorkspaceRepository : IWorkspaceRepository
     {
 
-        public WorkspaceRepository()
+        public WorkspaceRepository(IDbConnection connection)
         {
         }
 

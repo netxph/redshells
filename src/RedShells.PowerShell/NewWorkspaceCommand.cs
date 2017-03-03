@@ -1,6 +1,6 @@
 using System;
 using System.Management.Automation;
-using RedShells;
+using Microsoft.Data.Sqlite;
 using RedShells;
 using RedShells.Core.Interfaces;
 using RedShells.Core;
@@ -17,7 +17,9 @@ namespace RedShells.PowerShell
         protected IWorkspaceRepository Repository { get { return _repository; } }
 
         public NewWorkspaceCommand()
-            : this(new WorkspaceRepository())
+            : this(
+                new WorkspaceRepository(
+                    new SqliteConnection("Data Source=redshells.db;Version=3;")))
         {
         }
 

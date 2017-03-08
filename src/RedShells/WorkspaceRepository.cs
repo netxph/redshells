@@ -17,10 +17,9 @@ namespace RedShells
         {
             if(connection == null)
             {
-                throw new ArgumentNullException("connection", "WorkspaceRepository:connection");
+                throw new ArgumentNullException(nameof(connection), "WorkspaceRepository:connection");
             }
 
-            OnInitialize(connection);
             _connection = connection;
         }
 
@@ -37,6 +36,8 @@ namespace RedShells
 
         public void Add(Workspace workspace)
         {
+            OnInitialize(Connection);
+
             throw new NotImplementedException();
         }
 

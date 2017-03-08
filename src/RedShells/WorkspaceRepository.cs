@@ -27,6 +27,7 @@ namespace RedShells
         protected virtual void OnInitialize(IDbConnection connection)
         {
             var bootstrap = new Data.SqliteBootstrap(connection);
+            bootstrap.Start();
         }
 
         public Workspace Get(string name)

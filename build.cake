@@ -6,4 +6,10 @@ Task("Build")
   DotNetCoreBuild("");
 });
 
+Task("Publish")
+  .Does(() =>
+{
+  DotNetCorePublish("");
+});
+
 RunTarget(target);

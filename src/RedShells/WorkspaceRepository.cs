@@ -33,19 +33,73 @@ namespace RedShells
         {
             OnInitialize(Connection);
 
-            throw new NotImplementedException();
+            Connection.Open();
+
+            var command = Connection.CreateCommand();
+            command.CommandText = "SELECT Name, Directory from Workspaces";
+            var reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                var workspace = new Workspace(reader["Name"].ToString(), reader["Directory"].ToString());
+
+                return workspace;
+            }
+
+            Connection.Close();
+
+            return null;
+
         }
 
         public void Add(Workspace workspace)
         {
             OnInitialize(Connection);
 
-            throw new NotImplementedException();
+            Connection.Open();
+
+            var command = Connection.CreateCommand();
+            
+            var nameParam = command.CreateParameter();
+            nameParam.ParameterName = "Name";
+            nameParam.Value = workspace.Name;
+
+            var directoryParam = command.CreateParameter();
+            directoryParam.ParameterName = "Directory";
+            directoryParam.Value = workspace.Directory;
+
+            command.CommandText = "INSERT INTO Workspaces (Name, Directory) VALUES (@Name, @Directory)";
+            command.Parameters.Add(nameParam);
+            command.Parameters.Add(directoryParam);
+
+            command.ExecuteNonQuery();
+
+            Connection.Close();
+
         }
 
         public void Edit(Workspace workspace)
         {
-            throw new NotImplementedException();
+            OnInitialize(Connection);
+
+            Connection.Open();
+
+            var command = Connection.CreateCommand();
+            
+            var nameParam = command.CreateParameter();
+            nameParam.ParameterName = "Name";
+            nameParam.Value = workspace.Name;
+
+            var directoryParam = command.CreateParameter();
+            directoryParam.ParameterName = "Directory";
+            directoryParam.Value = workspace.Directory;
+
+            command.CommandText = "UPDATE Workspaces SET Directory = @Directory WHERE Name = @Name";
+            command.Parameters.Add(nameParam);
+            command.Parameters.Add(directoryParam);
+
+            command.ExecuteNonQuery();
+            Connection.Close();
         }
 
     }

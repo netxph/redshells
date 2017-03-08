@@ -19,7 +19,7 @@ namespace RedShells.PowerShell
 		public NewWorkspaceCommand()
 			: this(
 				new WorkspaceRepository(
-					new SqliteConnection("Data Source=redshells.db;Version=3;")))
+					new SqliteConnection("Data Source=redshells.db;")))
 		{
 		}
 

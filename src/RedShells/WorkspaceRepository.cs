@@ -31,6 +31,8 @@ namespace RedShells
 
         public Workspace Get(string name)
         {
+            OnInitialize(Connection);
+
             throw new NotImplementedException();
         }
 

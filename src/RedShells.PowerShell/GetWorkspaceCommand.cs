@@ -26,16 +26,25 @@ namespace RedShells.PowerShell
             _repository = repository;
         }
 
-        [Parameter(Position = 0, Mandatory = true)]
+        [Parameter(Position = 0)]
         public string Name { get; set; }
 
         protected override void ProcessRecord()
         {
-            var workspace = Repository.Get(Name);
-
-            if(workspace != null)
+            if(string.IsNullOrEmpty(Name))
             {
-                WriteObject(workspace);
+                var workspaces = Repository.GetAll();
+
+                WriteObject(workspaces);
+            }
+            else
+            {
+                var workspace = Repository.Get(Name);
+
+                if(workspace != null)
+                {
+                    WriteObject(workspace);
+                }
             }
 
         }

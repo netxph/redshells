@@ -1,6 +1,7 @@
 using System;
 using RedShells.Core.Interfaces;
 using RedShells;
+using System.IO;
 
 namespace RedShells.Data
 {
@@ -18,7 +19,11 @@ namespace RedShells.Data
 
         public Core.Workspace Get(string name)
         {
-            throw new NotImplementedException();
+            if(File.Exists(DataFile))
+            {
+            }
+
+            return null;
         }
 
         public void Add(Core.Workspace workspace)

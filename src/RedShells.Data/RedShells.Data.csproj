@@ -5,4 +5,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RedShells.Core\RedShells.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Jil" Version="2.15.0" />
+  </ItemGroup>
 </Project>

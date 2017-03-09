@@ -1,6 +1,5 @@
 using System;
 using System.Management.Automation;
-
 using RedShells.Core;
 using RedShells.Core.Interfaces;
 using RedShells;

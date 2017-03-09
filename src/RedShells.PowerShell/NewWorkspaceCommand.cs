@@ -30,7 +30,7 @@ namespace RedShells.PowerShell
 			_repository = repository;
 		}
 
-		[Parameter(Position = 0, Mandatory = true)]
+		[Parameter(Mandatory = true)]
 		public string Name { get; set; }
 
 		[Parameter]
@@ -51,10 +51,11 @@ namespace RedShells.PowerShell
 			}
 			else
 			{
-				Repository.Add(new Workspace(Name, Directory));
+			    workspace = new Workspace(Name, Directory);
+				Repository.Add(workspace);
 			}
 
-			WriteObject(string.Format("Workspace [{0}} created.", Name));
+			WriteObject(workspace);
 		}
 	}
 }

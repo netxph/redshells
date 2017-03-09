@@ -17,17 +17,35 @@ namespace RedShells.Data
 
         public JsonWorkspaceRepository(string dataFile)
         {
-            _dataFile = dataFile;
+            var home = Environment.GetEnvironmentVariable("HOME");
+            _dataFile = Path.Combine(Path.Combine(home, ".redshells"), dataFile);
+        }
+
+        protected virtual void EnsureDirectoryExist()
+        {
+            var home = Environment.GetEnvironmentVariable("HOME");
+            var configPath = Path.Combine(home, ".redshells");
+
+            if(!Directory.Exists(configPath))
+            {
+                Directory.CreateDirectory(configPath);
+            }
         }
 
         public Core.Workspace Get(string name)
         {
             if(File.Exists(DataFile))
             {
-               var json = File.ReadAllText(DataFile); 
-               var workspaces = JSON.Deserialize<IEnumerable<Core.Workspace>>(json);
+                var json = File.ReadAllText(DataFile); 
+                var workspaces = JSON.Deserialize<IEnumerable<Workspace>>(json);
 
-                return workspaces.FirstOrDefault(w => w.Name == name);
+                var workspace = workspaces.FirstOrDefault(w => w.Name == name);
+
+                if(workspace != null)
+                {
+                    return new Core.Workspace(workspace.Name, workspace.Directory);
+                }
+                
             }
 
             return null;
@@ -35,19 +53,23 @@ namespace RedShells.Data
 
         public void Add(Core.Workspace workspace)
         {
-            var workspaces = new List<Core.Workspace>();
+            EnsureDirectoryExist();
+
+            var workspaces = new List<Workspace>();
 
             if(File.Exists(DataFile))
             {
             }
             else
             {
-                workspaces.Add(workspace);
+                workspaces.Add(new Workspace() { Name = workspace.Name, Directory = workspace.Directory } );
             }
 
             var json = JSON.Serialize(workspaces);
 
-            File.WriteAllText(string.Format("$(ASSEMBLY_PATH)\\{0}", DataFile), json);
+            var home = Environment.GetEnvironmentVariable("HOME");
+
+            File.WriteAllText(DataFile, json);
         }
 
         public void Edit(Core.Workspace workspace)

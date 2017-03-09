@@ -31,9 +31,6 @@ namespace RedShells.PowerShell
 
         protected override void ProcessRecord()
         {
-            var home = Environment.GetEnvironmentVariable("HOME");
-            WriteObject(home);
-
             var workspace = Repository.Get(Name);
 
             if(workspace != null)

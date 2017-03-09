@@ -30,7 +30,7 @@ namespace RedShells.PowerShell
 			_repository = repository;
 		}
 
-		[Parameter(Mandatory = true)]
+		[Parameter(Position = 0, Mandatory = true)]
 		public string Name { get; set; }
 
 		[Parameter]

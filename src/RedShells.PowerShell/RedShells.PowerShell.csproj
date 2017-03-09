@@ -10,7 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedShells.Core\RedShells.Core.csproj" />
-    <ProjectReference Include="..\RedShells\RedShells.csproj" />
     <ProjectReference Include="..\RedShells.Data\RedShells.Data.csproj" />
   </ItemGroup>
 </Project>

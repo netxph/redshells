@@ -59,17 +59,13 @@ namespace RedShells.Data
 
             if(File.Exists(DataFile))
             {
-            }
-            else
-            {
-                workspaces.Add(new Workspace() { Name = workspace.Name, Directory = workspace.Directory } );
+                var json = File.ReadAllText(DataFile); 
+                workspaces.AddRange(JSON.Deserialize<IEnumerable<Workspace>>(json));
             }
 
-            var json = JSON.Serialize(workspaces);
+            workspaces.Add(new Workspace() { Name = workspace.Name, Directory = workspace.Directory } );
 
-            var home = Environment.GetEnvironmentVariable("HOME");
-
-            File.WriteAllText(DataFile, json);
+            File.WriteAllText(DataFile, JSON.Serialize(workspaces));
         }
 
         public void Edit(Core.Workspace workspace)

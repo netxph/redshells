@@ -47,6 +47,7 @@ namespace RedShells.PowerShell
 
 			if (workspace != null)
 			{
+			    workspace.SetDirectory(Directory);
 				Repository.Edit(workspace);
 			}
 			else

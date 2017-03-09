@@ -70,7 +70,24 @@ namespace RedShells.Data
 
         public void Edit(Core.Workspace workspace)
         {
-            throw new NotImplementedException();
+            EnsureDirectoryExist();
+
+            var workspaces = new List<Workspace>();
+
+            if(File.Exists(DataFile))
+            {
+                var json = File.ReadAllText(DataFile); 
+                workspaces.AddRange(JSON.Deserialize<IEnumerable<Workspace>>(json));
+            }
+
+            var data = workspaces.FirstOrDefault(w => w.Name == workspace.Name);
+
+            if(data != null)
+            {
+                data.Directory = workspace.Directory;
+
+                File.WriteAllText(DataFile, JSON.Serialize(workspaces));
+            }
         }
         
     }

@@ -9,8 +9,13 @@ namespace RedShells.Core
             Directory = directory;
         }
 
-        public string Name { get; protected set; }
-        public string Directory { get; protected set; }
+        public string Name { get; private set; }
+        public string Directory { get; private set; }
+
+        public void SetDirectory(string directory)
+        {
+            Directory = directory;
+        }
 
     }
 }

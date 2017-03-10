@@ -12,4 +12,10 @@ Task("Publish")
   DotNetCorePublish("");
 });
 
+Task("Test")
+  .Does(() =>
+  {
+    DotNetCoreTest("src/RedShells.Test/RedShells.Test.csproj");
+  });
+
 RunTarget(target);

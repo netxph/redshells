@@ -48,7 +48,7 @@ namespace RedShells.PowerShell
                     {
                         Name = w.Name,
                         Directory = w.Directory
-                    }));
+                    }).ToList());
             }
             else
             {

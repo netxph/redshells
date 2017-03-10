@@ -32,6 +32,11 @@ namespace RedShells.Data
             }
         }
 
+        public Core.Workspaces GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public Core.Workspace Get(string name)
         {
             if(File.Exists(DataFile))

@@ -15,6 +15,7 @@ Task("Publish")
 Task("Test")
   .Does(() =>
   {
+    DotNetCoreBuild("");
     DotNetCoreTest("src/RedShells.Test/RedShells.Test.csproj");
   });
 

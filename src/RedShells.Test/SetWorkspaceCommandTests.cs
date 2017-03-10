@@ -3,6 +3,7 @@ using Xunit;
 using Moq;
 using FluentAssertions;
 using RedShells.PowerShell;
+using RedShells.Core;
 using RedShells.Core.Interfaces;
 using System.Management.Automation;
 using System.Reflection;
@@ -17,25 +18,35 @@ namespace RedShells.Test
             var repository = new Mock<IWorkspaceRepository>();
             var session = new Mock<IConsoleSession>();
 
+            repository
+                .Setup(r => r.Get("Test"))
+                .Returns(new Workspace("Test", "/User/Test"));
+
             var command = new SetWorkspaceCommand(repository.Object, session.Object);
 
             command.Name = "Test";
             command.InvokeCommand();
 
             session
-                .Verify(s => s.Write(It.IsAny<object>()), Times.Once);
+                .Verify(s => s.InvokeCommand("Set-Location -Path '/User/Test'"), Times.Once);
         }
-    }
 
-    public static class TestExtensions
-    {
-
-        public static void InvokeCommand(this PSCmdlet cmdlet)
+        [Fact]
+        public void ShouldNotSetWorkspace_WhenNotExist()
         {
-            var cmdletType = typeof(PSCmdlet);
-            var method = cmdletType.GetMethod("ProcessRecord", BindingFlags.Instance|BindingFlags.NonPublic);
+            var repository = new Mock<IWorkspaceRepository>();
+            var session = new Mock<IConsoleSession>();
 
-            method.Invoke(cmdlet, new object[0]);
+            var command = new SetWorkspaceCommand(repository.Object, session.Object);
+
+            command.Name = "Test";
+            command.InvokeCommand();
+
+            session
+                .Verify(s => s.InvokeCommand(It.IsAny<string>()), Times.Never);
+            
         }
+
     }
+
 }

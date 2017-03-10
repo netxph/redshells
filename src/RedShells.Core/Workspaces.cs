@@ -12,6 +12,11 @@ namespace RedShells.Core
 
         protected IEnumerable<Workspace> Items { get { return _items; } }
 
+        public Workspaces()
+        {
+            _items = new List<Workspace>();
+        }
+
 		public IEnumerator<Workspace> GetEnumerator()
 		{
 		    return Items.GetEnumerator();
@@ -21,5 +26,12 @@ namespace RedShells.Core
 		{
 		    return Items.GetEnumerator();
 		}
+
+		public void Add(string name, string directory)
+        {
+            _items.Add(new Workspace(name, directory));
+        }
+
+	
 	}
 }

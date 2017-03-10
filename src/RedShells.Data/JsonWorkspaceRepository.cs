@@ -34,7 +34,20 @@ namespace RedShells.Data
 
         public Core.Workspaces GetAll()
         {
-            throw new NotImplementedException();
+            var workspaces = new Core.Workspaces();
+
+            if(File.Exists(DataFile))
+            {
+                var json = File.ReadAllText(DataFile); 
+                var data = JSON.Deserialize<IEnumerable<Workspace>>(json);
+
+                foreach(var item in data)
+                {
+                    workspaces.Add(item.Name, item.Directory);
+                }
+            }
+
+            return workspaces;
         }
 
         public Core.Workspace Get(string name)

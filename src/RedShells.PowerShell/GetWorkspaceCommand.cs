@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Management.Automation;
 
@@ -35,7 +37,12 @@ namespace RedShells.PowerShell
             {
                 var workspaces = Repository.GetAll();
 
-                WriteObject(workspaces);
+                WriteObject(workspaces.Select(w =>
+                    new WorkspaceModel()
+                    {
+                        Name = w.Name,
+                        Directory = w.Directory
+                    }));
             }
             else
             {
@@ -43,7 +50,11 @@ namespace RedShells.PowerShell
 
                 if(workspace != null)
                 {
-                    WriteObject(workspace);
+                    WriteObject(new WorkspaceModel()
+                    {
+                        Name = workspace.Name,
+                        Directory = workspace.Directory
+                    });
                 }
             }
 

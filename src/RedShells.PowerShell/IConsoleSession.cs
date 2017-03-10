@@ -5,5 +5,6 @@ namespace RedShells.PowerShell
     {
         void Write(object @object);
         void InvokeCommand(string command);
+        string GetWorkingDirectory();
     }
 }

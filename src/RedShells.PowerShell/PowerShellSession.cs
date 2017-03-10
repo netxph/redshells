@@ -17,6 +17,11 @@ namespace RedShells.PowerShell
         {
             Session.InvokeCommand.InvokeScript(command);
         }
+        
+        public string GetWorkingDirectory()
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual void RegisterCommand(PSCmdlet cmdlet)
         {

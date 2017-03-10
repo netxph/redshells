@@ -11,22 +11,22 @@ namespace RedShells.PowerShell
 	{
 
 		private readonly IWorkspaceRepository _repository;
+		private readonly IConsoleSession _session;
 
 		protected IWorkspaceRepository Repository { get { return _repository; } }
+		protected IConsoleSession Session { get { return _session; } }
 
 		public NewWorkspaceCommand()
-			: this(new Data.JsonWorkspaceRepository("workspace.json"))
+			: this(new Data.JsonWorkspaceRepository("workspace.json"),
+			        new PowerShellSession())
 		{
+		    ((PowerShellSession)Session).RegisterCommand(this);
 		}
 
-		public NewWorkspaceCommand(IWorkspaceRepository repository)
+		public NewWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
 		{
-			if (repository == null)
-			{
-				throw new ArgumentNullException(nameof(repository), "NewWorkspaceCommand:repository");
-			}
-
 			_repository = repository;
+		    _session = session;
 		}
 
 		[Parameter(Position = 0, Mandatory = true)]
@@ -39,7 +39,7 @@ namespace RedShells.PowerShell
 		{
 			if (string.IsNullOrEmpty(Directory))
 			{
-				Directory = this.SessionState.Path.CurrentFileSystemLocation.Path;
+				Directory = Session.GetWorkingDirectory();
 			}
 
 			var workspace = Repository.Get(Name);
@@ -55,7 +55,7 @@ namespace RedShells.PowerShell
 				Repository.Add(workspace);
 			}
 
-			WriteObject(workspace);
+			Session.Write(workspace);
 		}
 	}
 }

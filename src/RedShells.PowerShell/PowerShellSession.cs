@@ -5,19 +5,22 @@ namespace RedShells.PowerShell
 {
     public class PowerShellSession : IConsoleSession
     {
+
+        protected PSCmdlet Session { get; set; }
+
         public void Write(object @object)
         {
-            throw new NotImplementedException();
+            Session.WriteObject(@object);
         }
 
         public void InvokeCommand(string command)
         {
-            throw new NotImplementedException();
+            Session.InvokeCommand.InvokeScript(command);
         }
 
         public virtual void RegisterCommand(PSCmdlet cmdlet)
         {
-            throw new NotImplementedException();
+            Session = cmdlet;
         }
     }
 }

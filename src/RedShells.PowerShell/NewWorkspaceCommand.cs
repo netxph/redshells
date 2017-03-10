@@ -2,7 +2,6 @@ using System;
 using System.Management.Automation;
 using RedShells.Core;
 using RedShells.Core.Interfaces;
-using RedShells;
 
 namespace RedShells.PowerShell
 {
@@ -24,7 +23,7 @@ namespace RedShells.PowerShell
 		{
 			if (repository == null)
 			{
-				throw new ArgumentNullException("repository", "NewWorkspaceCommand:repository");
+				throw new ArgumentNullException(nameof(repository), "NewWorkspaceCommand:repository");
 			}
 
 			_repository = repository;
@@ -47,12 +46,12 @@ namespace RedShells.PowerShell
 
 			if (workspace != null)
 			{
-			    workspace.SetDirectory(Directory);
+				workspace.SetDirectory(Directory);
 				Repository.Edit(workspace);
 			}
 			else
 			{
-			    workspace = new Workspace(Name, Directory);
+				workspace = new Workspace(Name, Directory);
 				Repository.Add(workspace);
 			}
 

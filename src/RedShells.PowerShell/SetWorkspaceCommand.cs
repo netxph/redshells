@@ -15,11 +15,13 @@ namespace RedShells.PowerShell
         protected IWorkspaceRepository Repository { get { return _repository; } }
 
         public SetWorkspaceCommand()
-            : this(new JsonWorkspaceRepository("workspace.json"))
+            : this(
+                new JsonWorkspaceRepository("workspace.json"),
+                new PowerShellSession())
         {
         }
 
-        public SetWorkspaceCommand(IWorkspaceRepository repository)
+        public SetWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
         {
             _repository = repository;
         }

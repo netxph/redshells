@@ -20,7 +20,7 @@ namespace RedShells.PowerShell
         
         public string GetWorkingDirectory()
         {
-            throw new NotImplementedException();
+            return Session.SessionState.Path.CurrentLocation.Path;
         }
 
         public virtual void RegisterCommand(PSCmdlet cmdlet)

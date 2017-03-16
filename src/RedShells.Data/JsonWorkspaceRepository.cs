@@ -14,12 +14,23 @@ namespace RedShells.Data
         public JsonWorkspaceRepository(string dataFile)
         {
             var home = Environment.GetEnvironmentVariable("HOME");
+            if (string.IsNullOrEmpty(home))
+            {
+                home = Environment.GetEnvironmentVariable("LOCALAPPDATA");
+            }
+
             DataFile = Path.Combine(Path.Combine(home, ".redshells"), dataFile);
         }
 
         protected virtual void EnsureDirectoryExist()
         {
             var home = Environment.GetEnvironmentVariable("HOME");
+
+            if (string.IsNullOrEmpty(home))
+            {
+                home = Environment.GetEnvironmentVariable("LOCALAPPDATA");
+            }
+
             var configPath = Path.Combine(home, ".redshells");
 
             if(!Directory.Exists(configPath))

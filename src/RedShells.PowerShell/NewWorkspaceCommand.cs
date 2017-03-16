@@ -1,4 +1,3 @@
-using System;
 using System.Management.Automation;
 using RedShells.Core;
 using RedShells.Core.Interfaces;
@@ -9,14 +8,10 @@ namespace RedShells.PowerShell
 	[Cmdlet(VerbsCommon.New, "Workspace")]
 	public class NewWorkspaceCommand : PSCmdlet
 	{
+	    protected IWorkspaceRepository Repository { get; }
+	    protected IConsoleSession Session { get; }
 
-		private readonly IWorkspaceRepository _repository;
-		private readonly IConsoleSession _session;
-
-		protected IWorkspaceRepository Repository { get { return _repository; } }
-		protected IConsoleSession Session { get { return _session; } }
-
-		public NewWorkspaceCommand()
+	    public NewWorkspaceCommand()
 			: this(new Data.JsonWorkspaceRepository("workspace.json"),
 			        new PowerShellSession())
 		{
@@ -25,8 +20,8 @@ namespace RedShells.PowerShell
 
 		public NewWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
 		{
-			_repository = repository;
-		    _session = session;
+			Repository = repository;
+		    Session = session;
 		}
 
 		[Parameter(Position = 0, Mandatory = true)]

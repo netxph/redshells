@@ -1,4 +1,3 @@
-using System;
 using System.Management.Automation;
 using RedShells.Data;
 using RedShells.Core.Interfaces;
@@ -10,11 +9,8 @@ namespace RedShells.PowerShell
     [Cmdlet(VerbsCommon.Set, "Workspace")]
     public class SetWorkspaceCommand: PSCmdlet
     {
-        private readonly IWorkspaceRepository _repository;
-        private readonly IConsoleSession _session;
-
-        protected IWorkspaceRepository Repository { get { return _repository; } }
-        protected IConsoleSession Session { get { return _session; } }
+        protected IWorkspaceRepository Repository { get; }
+        protected IConsoleSession Session { get; }
 
         public SetWorkspaceCommand()
             : this(
@@ -26,8 +22,8 @@ namespace RedShells.PowerShell
 
         public SetWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
         {
-            _repository = repository;
-            _session = session;
+            Repository = repository;
+            Session = session;
         }
 
         

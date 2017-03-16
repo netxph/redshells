@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,9 +9,9 @@ namespace RedShells.Core
 
         private readonly List<Workspace> _items;
 
-        protected IEnumerable<Workspace> Items { get { return _items; } }
+        protected IEnumerable<Workspace> Items => _items;
 
-        public Workspaces()
+	    public Workspaces()
         {
             _items = new List<Workspace>();
         }

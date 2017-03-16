@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using Xunit;
-using FluentAssertions;
-
 using RedShells.PowerShell;
 using RedShells.Core;
 using RedShells.Core.Interfaces;
@@ -74,7 +70,7 @@ namespace RedShells.Test
 
             session
                 .Verify(s => s.Write(It.Is<List<WorkspaceModel>>(
-                    w => w.Count() > 0)), Times.Once);
+                    w => w.Any())), Times.Once);
 
         }
     }

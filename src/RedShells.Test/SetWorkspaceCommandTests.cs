@@ -1,12 +1,8 @@
-using System;
 using Xunit;
 using Moq;
-using FluentAssertions;
 using RedShells.PowerShell;
 using RedShells.Core;
 using RedShells.Core.Interfaces;
-using System.Management.Automation;
-using System.Reflection;
 
 namespace RedShells.Test
 {

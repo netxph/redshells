@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Management.Automation;
 
@@ -11,12 +10,8 @@ namespace RedShells.PowerShell
     [Cmdlet(VerbsCommon.Get, "Workspace")]
     public class GetWorkspaceCommand: PSCmdlet
     {
-
-        private readonly IWorkspaceRepository _repository;
-        private readonly IConsoleSession _session;
-
-        protected IWorkspaceRepository Repository { get { return _repository; } }
-        protected IConsoleSession Session { get { return _session; } }
+        protected IWorkspaceRepository Repository { get; }
+        protected IConsoleSession Session { get; }
 
         public GetWorkspaceCommand()
             : this(
@@ -28,8 +23,8 @@ namespace RedShells.PowerShell
 
         public GetWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
         {
-            _repository = repository;
-            _session = session;
+            Repository = repository;
+            Session = session;
         }
 
         [Parameter(Position = 0)]

@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
 using Xunit;
 using Moq;
-using FluentAssertions;
-
 using RedShells.PowerShell;
 using RedShells.Core;
 using RedShells.Core.Interfaces;

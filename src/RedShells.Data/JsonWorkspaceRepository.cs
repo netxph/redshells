@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RedShells.Core.Interfaces;
-using RedShells;
 using System.IO;
 using Jil;
 
@@ -10,15 +9,12 @@ namespace RedShells.Data
 {
     public class JsonWorkspaceRepository : IWorkspaceRepository
     {
-
-        private readonly string _dataFile;
-
-        public string DataFile { get { return _dataFile; } }
+        public string DataFile { get; }
 
         public JsonWorkspaceRepository(string dataFile)
         {
             var home = Environment.GetEnvironmentVariable("HOME");
-            _dataFile = Path.Combine(Path.Combine(home, ".redshells"), dataFile);
+            DataFile = Path.Combine(Path.Combine(home, ".redshells"), dataFile);
         }
 
         protected virtual void EnsureDirectoryExist()

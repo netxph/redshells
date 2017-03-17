@@ -7,9 +7,19 @@ namespace RedShells.PowerShell
     public class RemoveWorkspaceCommand: PSCmdlet
     {
 
+        public IConsoleSession Session { get; }
+
+        public RemoveWorkspaceCommand(IConsoleSession session)
+        {
+            Session = session;
+        }
+
+        [Parameter(Position = 0)]
+        public string Name { get; set; }
+
         protected override void ProcessRecord()
         {
-            WriteObject("Hello world!!!");
+            Session.Write(new WorkspaceModel() { Name = Name });
         }
 
     }

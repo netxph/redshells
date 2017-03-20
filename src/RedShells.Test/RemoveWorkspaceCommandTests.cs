@@ -1,4 +1,6 @@
 using Moq;
+using Xunit;
+using FluentAssertions;
 using RedShells.PowerShell;
 
 namespace RedShells.Test
@@ -10,6 +12,7 @@ namespace RedShells.Test
     public class RemoveWorkspaceCommandTests
     {
 
+        [Fact]
         public void ShouldReturnDeleted()
         {
             var session = new Mock<IConsoleSession>();
@@ -21,6 +24,11 @@ namespace RedShells.Test
             session
                 .Verify(s => s.Write(It.Is<WorkspaceModel>(w => w.Name == "test")), Times.Once);
 
+        }
+
+        [Fact]
+        public void ShouldRemoveAll_WhenNameIsNotEmpty()
+        {
         }
 
     }

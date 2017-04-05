@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Management.Automation;
+using RedShells.Core.Interfaces;
 
 namespace RedShells.PowerShell
 {
@@ -8,10 +10,12 @@ namespace RedShells.PowerShell
     {
 
         public IConsoleSession Session { get; }
+        public IWorkspaceRepository Repository { get; }
 
-        public RemoveWorkspaceCommand(IConsoleSession session)
+        public RemoveWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
         {
             Session = session;
+            Repository = repository;
         }
 
         [Parameter(Position = 0)]
@@ -19,7 +23,22 @@ namespace RedShells.PowerShell
 
         protected override void ProcessRecord()
         {
-            Session.Write(new WorkspaceModel() { Name = Name });
+            if (!string.IsNullOrEmpty(Name))
+            {
+                var workspace = Repository.Get(Name);
+
+                Repository.Delete(Name);
+
+                Session.Write(workspace);
+            }
+            else
+            {
+                var workspaces = Repository.GetAll();
+
+                Repository.DeleteAll();
+
+                Session.Write(workspaces);
+            }
         }
 
     }

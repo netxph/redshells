@@ -7,6 +7,8 @@ namespace RedShells.Core.Interfaces
         Workspaces GetAll();
         void Add(Workspace workspace);
         void Edit(Workspace workspace);
+        void Delete(string name);
+        void DeleteAll();
     }
 
 }

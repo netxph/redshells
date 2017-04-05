@@ -114,6 +114,15 @@ namespace RedShells.Data
                 File.WriteAllText(DataFile, JSON.Serialize(workspaces));
             }
         }
-        
+
+        public void Delete(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

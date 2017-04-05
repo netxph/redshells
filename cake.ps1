@@ -41,6 +41,7 @@ http://cakebuild.net
 [CmdletBinding()]
 Param(
     [string]$Script = "build.cake",
+    [Parameter(Position=0)]
     [string]$Target = "Build",
     [ValidateSet("Release", "Debug")]
     [string]$Configuration = "Release",
@@ -51,7 +52,7 @@ Param(
     [switch]$WhatIf,
     [switch]$Mono,
     [switch]$SkipToolPackageRestore,
-    [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
+    [Parameter(Mandatory=$false,ValueFromRemainingArguments=$true)]
     [string[]]$ScriptArgs
 )
 

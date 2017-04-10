@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Management.Automation;
 using RedShells.Core.Interfaces;
+using RedShells.Data;
 
 namespace RedShells.PowerShell
 {
@@ -11,6 +12,14 @@ namespace RedShells.PowerShell
 
         public IConsoleSession Session { get; }
         public IWorkspaceRepository Repository { get; }
+
+        public RemoveWorkspaceCommand()
+            : this(
+                new JsonWorkspaceRepository("workspace.json"),
+                new PowerShellSession())
+        {
+            ((PowerShellSession)Session).RegisterCommand(this);
+        }
 
         public RemoveWorkspaceCommand(IWorkspaceRepository repository, IConsoleSession session)
         {

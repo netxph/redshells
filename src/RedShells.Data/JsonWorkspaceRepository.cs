@@ -117,12 +117,28 @@ namespace RedShells.Data
 
         public void Delete(string name)
         {
-            throw new NotImplementedException();
+            EnsureDirectoryExist();
+
+            var workspaces = new List<Workspace>();
+
+            if(File.Exists(DataFile))
+            {
+                var json = File.ReadAllText(DataFile); 
+                workspaces.AddRange(JSON.Deserialize<IEnumerable<Workspace>>(json));
+            }
+
+            workspaces.RemoveAll(w => w.Name == name);
+
+            File.WriteAllText(DataFile, JSON.Serialize(workspaces));
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            EnsureDirectoryExist();
+
+            var workspaces = new List<Workspace>();
+
+            File.WriteAllText(DataFile, JSON.Serialize(workspaces));
         }
     }
 }

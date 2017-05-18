@@ -27,16 +27,35 @@ namespace RedShells.PowerShell
         }
 
         
-        [Parameter(Position = 0, Mandatory = true)]
+        [Parameter(ParameterSetName = "DirectorySet", Position = 0, Mandatory = true)]
         public string Name { get; set; }
+
+        [Parameter(ParameterSetName = "BackSet", Mandatory = true)]
+        public SwitchParameter Back { get; set; }
 
         protected override void ProcessRecord()
         {
-            var workspace = Repository.Get(Name);
-
-            if(workspace != null)
+            if (Back.IsPresent)
             {
-                Session.InvokeCommand($"Set-Location -Path '{workspace.Directory}'");
+                var directory = Session.PopDirectory();
+
+                if (!string.IsNullOrEmpty(directory))
+                {
+                    var lastDirectory = Session.GetWorkingDirectory();
+
+                    Session.InvokeCommand($"Set-Location -Path '{directory}'");
+                    Session.PushDirectory(lastDirectory);
+                }
+            }
+            else
+            {
+                var workspace = Repository.Get(Name);
+
+                if (workspace != null)
+                {
+                    Session.PushDirectory(Session.GetWorkingDirectory());
+                    Session.InvokeCommand($"Set-Location -Path '{workspace.Directory}'");
+                }
             }
         }
     }

@@ -6,5 +6,7 @@ namespace RedShells.PowerShell
         void Write(object @object);
         void InvokeCommand(string command);
         string GetWorkingDirectory();
+        string PopDirectory();
+        void PushDirectory(string directory);
     }
 }
